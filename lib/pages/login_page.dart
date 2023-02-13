@@ -4,6 +4,7 @@ import 'package:jarmpnj/auth.dart';
 import 'package:jarmpnj/components/my_button.dart';
 import 'package:jarmpnj/components/my_textfield.dart';
 import 'package:jarmpnj/components/square_tile.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class LoginPage extends StatefulWidget {
   final Function()? onTap;
@@ -24,14 +25,30 @@ class _LoginPageState extends State<LoginPage> {
 
   // Sign user in method
   Future<void> signInWithEmailAndPassword() async {
+    showLoading();
     try {
       await Auth().signInWithEmailAndPassword(
         email: emailController.text,
         password: passwordController.text,
       );
+      Navigator.pop(context);
     } on FirebaseAuthException catch (e) {
+      Navigator.pop(context);
       showErrorMessage(e.message ?? "");
     }
+  }
+
+// Show loading to user
+  void showLoading() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Center(
+            child: LoadingAnimationWidget.newtonCradle(
+                color: Colors.white, size: 100));
+      },
+      barrierDismissible: false,
+    );
   }
 
   //error message to user
@@ -40,11 +57,11 @@ class _LoginPageState extends State<LoginPage> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            backgroundColor: Colors.deepPurple,
+            backgroundColor: Colors.grey.shade200,
             title: Center(
               child: Text(
                 message,
-                style: const TextStyle(color: Colors.white),
+                style: const TextStyle(color: Colors.black, fontSize: 16),
               ),
             ),
           );
@@ -83,6 +100,7 @@ class _LoginPageState extends State<LoginPage> {
                   controller: emailController,
                   hintText: 'Email',
                   obscureText: false,
+                  textInputAction: TextInputAction.next,
                 ),
                 const SizedBox(height: 10),
 
@@ -91,6 +109,7 @@ class _LoginPageState extends State<LoginPage> {
                   controller: passwordController,
                   hintText: 'Password',
                   obscureText: true,
+                  textInputAction: TextInputAction.done,
                 ),
 
                 const SizedBox(height: 10),

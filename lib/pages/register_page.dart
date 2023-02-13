@@ -4,6 +4,7 @@ import 'package:jarmpnj/auth.dart';
 import 'package:jarmpnj/components/my_button.dart';
 import 'package:jarmpnj/components/my_textfield.dart';
 import 'package:jarmpnj/components/square_tile.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class RegisterPage extends StatefulWidget {
   final Function()? onTap;
@@ -27,12 +28,15 @@ class _RegisterPageState extends State<RegisterPage> {
   Future<void> createUserWithEmailAndPassword() async {
     // check if password is confirmed
     if (passwordController.text == confirmPasswordController.text) {
+      showLoading();
       try {
         await Auth().createUserWithEmailAndPassword(
           email: emailController.text,
           password: passwordController.text,
         );
+        Navigator.pop(context);
       } on FirebaseAuthException catch (e) {
+        Navigator.pop(context);
         showErrorMessage(e.message ?? "");
       }
     } else {
@@ -41,17 +45,33 @@ class _RegisterPageState extends State<RegisterPage> {
     }
   }
 
+  // Show loading to user
+  void showLoading() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Center(
+            child: LoadingAnimationWidget.newtonCradle(
+                color: Colors.white, size: 100));
+      },
+      barrierDismissible: false,
+    );
+  }
+
   //error message to user
   void showErrorMessage(String message) {
     showDialog(
         context: context,
         builder: (context) {
           return AlertDialog(
-            backgroundColor: Colors.deepPurple,
+            backgroundColor: Colors.grey.shade200,
             title: Center(
               child: Text(
                 message,
-                style: const TextStyle(color: Colors.white),
+                style: const TextStyle(
+                  color: Colors.black,
+                  fontSize: 16,
+                ),
               ),
             ),
           );
@@ -90,6 +110,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   controller: emailController,
                   hintText: 'Email',
                   obscureText: false,
+                  textInputAction: TextInputAction.next,
                 ),
                 const SizedBox(height: 10),
 
@@ -98,6 +119,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   controller: passwordController,
                   hintText: 'Password',
                   obscureText: true,
+                  textInputAction: TextInputAction.next,
                 ),
 
                 const SizedBox(height: 10),
@@ -107,6 +129,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   controller: confirmPasswordController,
                   hintText: 'Confirm Password',
                   obscureText: true,
+                  textInputAction: TextInputAction.done,
                 ),
 
                 const SizedBox(height: 25),

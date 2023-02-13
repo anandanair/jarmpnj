@@ -15,7 +15,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: MyButton(onTap: signOut, text: "Signout"),
+      body: Center(child: MyButton(onTap: signOut, text: "Signout")),
     );
   }
 }
