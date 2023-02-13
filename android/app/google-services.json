@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "1028398753139",
+    "project_id": "jarmpnj",
+    "storage_bucket": "jarmpnj.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1028398753139:android:d1690193e0a292b923d106",
+        "android_client_info": {
+          "package_name": "com.example.jarmpnj"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1028398753139-nkgsp5feced8cpsrcqaet8hvs6mpdhog.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYlfcgfGAYPuso2YvvWjBoxBvG7f04kgg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1028398753139-nkgsp5feced8cpsrcqaet8hvs6mpdhog.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1028398753139-rpsrsoe9t7h88l2oocj5ui1s0253vdhq.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.jarmpnj"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
