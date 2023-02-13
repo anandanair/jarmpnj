@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:jarmpnj/pages/login_page.dart';
+import 'package:jarmpnj/widget_tree.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: LoginPage(),
+      home: const WidgetTree(),
     );
   }
 }
