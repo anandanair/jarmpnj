@@ -20,7 +20,7 @@ class _WidgetTreeState extends State<WidgetTree> {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           FirestoreService().checkUserExists();
-          return HomePage();
+          return const HomePage();
         } else {
           return const LoginOrRegisterPage();
         }

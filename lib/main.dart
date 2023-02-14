@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         colorSchemeSeed: brightness == Brightness.dark
             ? const Color.fromARGB(255, 18, 6, 24)
-            : Color.fromARGB(255, 204, 126, 204));
+            : const Color.fromARGB(255, 204, 126, 204));
 
     return baseTheme.copyWith(
       textTheme: GoogleFonts.comicNeueTextTheme(baseTheme.textTheme),

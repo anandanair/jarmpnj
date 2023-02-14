@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:jarmpnj/pages/albums_page.dart';
 import 'package:jarmpnj/pages/photos_page.dart';
 import 'package:jarmpnj/services/auth.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -49,7 +50,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   final screens = [
-    PhotosPage(),
+    const PhotosPage(),
     Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: const [
@@ -62,12 +63,7 @@ class _HomePageState extends State<HomePage> {
         Center(child: Text("Favorites")),
       ],
     ),
-    Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: const [
-        Center(child: Text("Settings")),
-      ],
-    ),
+    const AlbumsPage(),
   ];
 
   @override
@@ -129,8 +125,8 @@ class _HomePageState extends State<HomePage> {
                 text: 'Favorites',
               ),
               GButton(
-                icon: Icons.settings,
-                text: 'Settings',
+                icon: Icons.photo_library,
+                text: 'Albums',
               ),
             ],
           ),
