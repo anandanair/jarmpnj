@@ -33,7 +33,7 @@ class _VideoProviderState extends State<VideoProvider> {
         setState(() {});
       });
     } catch (e) {
-      print("Failed : $e");
+      // print("Failed : $e");
     }
   }
 

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jarmpnj/pages/video_provider.dart';
 import 'package:photo_gallery/photo_gallery.dart';
-import 'package:transparent_image/transparent_image.dart';
 
 class ViewerPage extends StatelessWidget {
   final Medium medium;
@@ -13,7 +12,7 @@ class ViewerPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    DateTime? date = medium.creationDate ?? medium.modifiedDate;
+    // DateTime? date = medium.creationDate ?? medium.modifiedDate;
 
     return Scaffold(
       appBar: AppBar(
@@ -28,7 +27,7 @@ class ViewerPage extends StatelessWidget {
           child: medium.mediumType == MediumType.image
               ? Image(
                   image: PhotoProvider(mediumId: medium.id),
-                  fit: BoxFit.cover ,
+                  fit: BoxFit.cover,
                 )
               // FadeInImage(
               //     fit: BoxFit.cover,
