@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:jarmpnj/auth.dart';
+import 'package:jarmpnj/services/auth.dart';
 import 'package:jarmpnj/pages/home_page.dart';
 import 'package:jarmpnj/pages/login_or_register_page.dart';
 import 'package:jarmpnj/services/firestore_service.dart';
