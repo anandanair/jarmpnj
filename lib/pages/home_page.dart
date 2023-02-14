@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:jarmpnj/auth.dart';
+import 'package:jarmpnj/services/auth.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class HomePage extends StatelessWidget {

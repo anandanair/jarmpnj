@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:jarmpnj/auth.dart';
+import 'package:jarmpnj/services/auth.dart';
 import 'package:jarmpnj/components/my_button.dart';
 import 'package:jarmpnj/components/my_textfield.dart';
 import 'package:jarmpnj/components/square_tile.dart';
