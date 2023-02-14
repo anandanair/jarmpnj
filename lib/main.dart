@@ -21,8 +21,8 @@ class MyApp extends StatelessWidget {
         brightness: brightness,
         useMaterial3: true,
         colorSchemeSeed: brightness == Brightness.dark
-            ? const Color.fromARGB(255, 33, 11, 44)
-            : const Color.fromARGB(255, 14, 39, 60));
+            ? const Color.fromARGB(255, 18, 6, 24)
+            : Color.fromARGB(255, 204, 126, 204));
 
     return baseTheme.copyWith(
       textTheme: GoogleFonts.comicNeueTextTheme(baseTheme.textTheme),

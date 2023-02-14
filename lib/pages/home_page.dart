@@ -46,7 +46,6 @@ class HomePage extends StatelessWidget {
     switch (index) {
       case 0:
         // Photos Page
-        signOut();
         break;
       case 1:
         // Search Page
@@ -65,14 +64,15 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: Container(
-        color: Colors.black,
+        color: Theme.of(context).colorScheme.background,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
           child: GNav(
-            backgroundColor: Colors.black,
-            color: Colors.white,
-            activeColor: Colors.white,
-            tabBackgroundColor: Colors.grey.shade800,
+            backgroundColor: Theme.of(context).colorScheme.background,
+            color: Theme.of(context).colorScheme.primary,
+            activeColor: Theme.of(context).colorScheme.primary,
+            tabBackgroundColor:
+                Theme.of(context).colorScheme.primary.withAlpha(50),
             padding: const EdgeInsets.all(16),
             gap: 8,
             haptic: true,
