@@ -14,6 +14,17 @@ class MyButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return FilledButton(
       onPressed: onTap,
+      style: ButtonStyle(
+          textStyle: MaterialStatePropertyAll(
+              Theme.of(context).textTheme.headlineMedium),
+          padding: const MaterialStatePropertyAll(
+            EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+          ),
+          shape: MaterialStatePropertyAll(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+          )),
       child: Text(text),
     );
     // return GestureDetector(

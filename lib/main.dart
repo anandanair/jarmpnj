@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:jarmpnj/utils/material3_theme.dart';
 import 'package:jarmpnj/widget_tree.dart';
 import 'firebase_options.dart';
 
@@ -17,17 +18,10 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    const basilTheme = BasilTheme();
     return MaterialApp(
       title: 'JARMPNJ',
-      theme: ThemeData(
-        brightness: Brightness.light,
-        useMaterial3: true,
-      ),
-      darkTheme: ThemeData(
-        brightness: Brightness.dark,
-        useMaterial3: true,
-      ),
-      themeMode: ThemeMode.system,
+      theme: basilTheme.toThemeData(),
       home: const WidgetTree(),
     );
   }

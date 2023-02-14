@@ -90,7 +90,7 @@ class _LoginPageState extends State<LoginPage> {
                 //welcome back
                 Text(
                   'Welcome back you\'ve been missed!',
-                  style: Theme.of(context).textTheme.titleMedium,
+                  style: Theme.of(context).textTheme.titleLarge,
                 ),
 
                 const SizedBox(height: 25),
@@ -121,7 +121,7 @@ class _LoginPageState extends State<LoginPage> {
                     children: [
                       Text(
                         'Forgot Password?',
-                        style: Theme.of(context).textTheme.bodySmall,
+                        style: Theme.of(context).textTheme.bodyMedium,
                       ),
                     ],
                   ),

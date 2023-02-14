@@ -100,7 +100,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 //lets create an account for you
                 Text(
                   'Let\'s create an account for you!',
-                  style: Theme.of(context).textTheme.titleMedium,
+                  style: Theme.of(context).textTheme.titleLarge,
                 ),
 
                 const SizedBox(height: 25),
