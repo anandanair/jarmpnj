@@ -51,6 +51,7 @@ dependencies:
   image_size_getter: ^2.1.2
   photo_gallery: ^1.1.1
   transparent_image: ^2.0.0
+  video_player: ^2.5.1
 
 dev_dependencies:
   flutter_test:

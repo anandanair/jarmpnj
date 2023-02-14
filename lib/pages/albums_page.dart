@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:jarmpnj/pages/album_page.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:photo_gallery/photo_gallery.dart';
 import 'package:transparent_image/transparent_image.dart';
@@ -27,7 +28,7 @@ class _AlbumsPageState extends State<AlbumsPage> {
   Future<void> initAsync() async {
     if (await _promptPermissionSetting()) {
       List<Album> albums =
-          await PhotoGallery.listAlbums(mediumType: MediumType.image);
+          await PhotoGallery.listAlbums(mediumType: MediumType.video);
       setState(() {
         _albums = albums;
         _loading = false;
@@ -69,7 +70,9 @@ class _AlbumsPageState extends State<AlbumsPage> {
                 crossAxisSpacing: 5.0,
                 children: <Widget>[
                   ...?_albums?.map((album) => GestureDetector(
-                        onTap: () {},
+                        onTap: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => AlbumPage(album: album))),
                         child: Column(
                           children: <Widget>[
                             ClipRRect(
