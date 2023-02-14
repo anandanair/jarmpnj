@@ -20,9 +20,14 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'JARMPNJ',
       theme: ThemeData(
+        brightness: Brightness.light,
         useMaterial3: true,
-        primarySwatch: Colors.blue,
       ),
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
+        useMaterial3: true,
+      ),
+      themeMode: ThemeMode.system,
       home: const WidgetTree(),
     );
   }
