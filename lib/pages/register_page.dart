@@ -52,7 +52,7 @@ class _RegisterPageState extends State<RegisterPage> {
       builder: (context) {
         return Center(
             child: LoadingAnimationWidget.newtonCradle(
-                color: Colors.white, size: 100));
+                color: Theme.of(context).highlightColor, size: 100));
       },
       barrierDismissible: false,
     );
@@ -64,14 +64,10 @@ class _RegisterPageState extends State<RegisterPage> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            backgroundColor: Colors.grey.shade200,
             title: Center(
               child: Text(
                 message,
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 16,
-                ),
+                style: Theme.of(context).textTheme.bodyLarge,
               ),
             ),
           );
@@ -100,7 +96,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 //lets create an account for you
                 Text(
                   'Let\'s create an account for you!',
-                  style: Theme.of(context).textTheme.titleMedium,
+                  style: Theme.of(context).textTheme.titleLarge,
                 ),
 
                 const SizedBox(height: 25),

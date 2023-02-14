@@ -45,7 +45,7 @@ class _LoginPageState extends State<LoginPage> {
       builder: (context) {
         return Center(
             child: LoadingAnimationWidget.newtonCradle(
-                color: Colors.white, size: 100));
+                color: Theme.of(context).primaryColor, size: 100));
       },
       barrierDismissible: false,
     );
@@ -57,11 +57,10 @@ class _LoginPageState extends State<LoginPage> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            backgroundColor: Colors.grey.shade200,
             title: Center(
               child: Text(
                 message,
-                style: const TextStyle(color: Colors.black, fontSize: 16),
+                style: Theme.of(context).textTheme.bodyLarge,
               ),
             ),
           );
@@ -90,7 +89,7 @@ class _LoginPageState extends State<LoginPage> {
                 //welcome back
                 Text(
                   'Welcome back you\'ve been missed!',
-                  style: Theme.of(context).textTheme.titleMedium,
+                  style: Theme.of(context).textTheme.titleLarge,
                 ),
 
                 const SizedBox(height: 25),
@@ -121,7 +120,7 @@ class _LoginPageState extends State<LoginPage> {
                     children: [
                       Text(
                         'Forgot Password?',
-                        style: Theme.of(context).textTheme.bodySmall,
+                        style: Theme.of(context).textTheme.bodyMedium,
                       ),
                     ],
                   ),
