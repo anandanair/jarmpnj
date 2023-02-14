@@ -1,12 +1,19 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:jarmpnj/pages/photos_page.dart';
 import 'package:jarmpnj/services/auth.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-class HomePage extends StatelessWidget {
-  HomePage({super.key});
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  int currentIndex = 0;
   final User? user = Auth().currentUser;
 
   Future<void> signOut() async {
@@ -41,28 +48,32 @@ class HomePage extends StatelessWidget {
     }
   }
 
-  // Toggle Bottom Navigation Pages
-  void toggleBottomNavigationPages(index) {
-    switch (index) {
-      case 0:
-        // Photos Page
-        break;
-      case 1:
-        // Search Page
-        break;
-      case 2:
-        // Favorites Page
-        break;
-      case 3:
-        // Settings Page
-        break;
-      default:
-    }
-  }
+  final screens = [
+    PhotosPage(),
+    Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: const [
+        Center(child: Text("Search")),
+      ],
+    ),
+    Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: const [
+        Center(child: Text("Favorites")),
+      ],
+    ),
+    Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: const [
+        Center(child: Text("Settings")),
+      ],
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      body: screens[currentIndex],
       bottomNavigationBar: Container(
         color: Theme.of(context).colorScheme.background,
         child: Padding(
@@ -76,7 +87,11 @@ class HomePage extends StatelessWidget {
             padding: const EdgeInsets.all(16),
             gap: 8,
             haptic: true,
-            onTabChange: toggleBottomNavigationPages,
+            onTabChange: (value) {
+              setState(() {
+                currentIndex = value;
+              });
+            },
             tabs: const [
               GButton(
                 icon: Icons.photo,
