@@ -73,6 +73,29 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'JARMPNJ',
+          style: Theme.of(context).textTheme.titleLarge,
+        ),
+        centerTitle: true,
+        actions: <Widget>[
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: CircleAvatar(
+              backgroundColor: Theme.of(context).colorScheme.primary,
+              child: CircleAvatar(
+                maxRadius: 17,
+                backgroundImage: NetworkImage(user!.photoURL ?? ""),
+                backgroundColor: Theme.of(context).colorScheme.onPrimary,
+                child: InkWell(
+                  onTap: () {},
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
       body: screens[currentIndex],
       bottomNavigationBar: Container(
         color: Theme.of(context).colorScheme.background,

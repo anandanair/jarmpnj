@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jarmpnj/components/my_button.dart';
 
 class PhotosPage extends StatefulWidget {
   const PhotosPage({super.key});
@@ -9,7 +10,14 @@ class PhotosPage extends StatefulWidget {
 
 class _PhotosPageState extends State<PhotosPage> {
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return Center(
+      child: MyButton(onTap: () {}, text: "Back Up Photos"),
+    );
   }
 }
