@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:jarmpnj/pages/viewer_page.dart';
 import 'package:photo_gallery/photo_gallery.dart';
 import 'package:transparent_image/transparent_image.dart';
@@ -17,6 +18,7 @@ class AlbumPage extends StatefulWidget {
 
 class _AlbumPageState extends State<AlbumPage> {
   List<Medium>? _media;
+  bool backup = false;
 
   @override
   void initState() {
@@ -34,6 +36,32 @@ class _AlbumPageState extends State<AlbumPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.album.name ?? "Unnamed Album"),
+        bottom: PreferredSize(
+          preferredSize: const Size(20, 20),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Backup',
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+                Switch(
+                  value: backup,
+                  onChanged: (value) {
+                    setState(() {
+                      backup = value;
+                    });
+                  },
+                )
+              ],
+            ),
+          ),
+        ),
+      ),
       body: GridView.count(
         crossAxisCount: 3,
         mainAxisSpacing: 1.0,
@@ -42,15 +70,18 @@ class _AlbumPageState extends State<AlbumPage> {
           ...?_media?.map((medium) => GestureDetector(
                 onTap: () => Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => ViewerPage(medium: medium))),
-                child: Container(
-                  color: Colors.grey[300],
-                  child: FadeInImage(
-                    fit: BoxFit.cover,
-                    placeholder: MemoryImage(kTransparentImage),
-                    image: ThumbnailProvider(
-                      mediumId: medium.id,
-                      mediumType: medium.mediumType,
-                      highQuality: true,
+                child: Hero(
+                  tag: medium.id,
+                  child: Container(
+                    color: Colors.grey[300],
+                    child: FadeInImage(
+                      fit: BoxFit.cover,
+                      placeholder: MemoryImage(kTransparentImage),
+                      image: ThumbnailProvider(
+                        mediumId: medium.id,
+                        mediumType: medium.mediumType,
+                        highQuality: true,
+                      ),
                     ),
                   ),
                 ),
