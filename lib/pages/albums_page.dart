@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:jarmpnj/components/my_extended_floating_button.dart';
 import 'package:jarmpnj/pages/album_page.dart';
+import 'package:jarmpnj/pages/photos_on_device_page.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:photo_gallery/photo_gallery.dart';
 import 'package:transparent_image/transparent_image.dart';
@@ -95,15 +96,14 @@ class _AlbumsPageState extends State<AlbumsPage> {
                   ),
                 ),
                 SliverPadding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 10.0, vertical: 25),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 0, vertical: 25),
                   sliver: SliverToBoxAdapter(
                     child: Container(
                       height: gridHeight + 70,
                       decoration: BoxDecoration(
                         color:
                             Theme.of(context).colorScheme.primary.withAlpha(25),
-                        borderRadius: BorderRadius.circular(20),
                       ),
                       child: Column(
                         children: [
@@ -119,7 +119,12 @@ class _AlbumsPageState extends State<AlbumsPage> {
                                       Theme.of(context).textTheme.titleMedium,
                                 ),
                                 TextButton(
-                                  onPressed: () {},
+                                  onPressed: () => Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          PhotosOnDevicePage(albums: _albums!),
+                                    ),
+                                  ),
                                   child: Text(
                                     "View All",
                                     style:
