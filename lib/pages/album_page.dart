@@ -66,25 +66,36 @@ class _AlbumPageState extends State<AlbumPage> {
         mainAxisSpacing: 1.0,
         crossAxisSpacing: 1.0,
         children: <Widget>[
-          ...?_media?.map((medium) => GestureDetector(
-                onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => ViewerPage(medium: medium))),
-                child: Hero(
-                  tag: medium.id,
-                  child: Container(
-                    color: Colors.grey[300],
-                    child: FadeInImage(
-                      fit: BoxFit.cover,
-                      placeholder: MemoryImage(kTransparentImage),
-                      image: ThumbnailProvider(
-                        mediumId: medium.id,
-                        mediumType: medium.mediumType,
-                        highQuality: true,
-                      ),
+          ...?_media?.asMap().entries.map((entry) {
+            int index = entry.key;
+            Medium medium = entry.value;
+            return GestureDetector(
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => ViewerPage(
+                    medium: medium,
+                    initialIndex: index,
+                    media: _media!,
+                  ),
+                ),
+              ),
+              child: Hero(
+                tag: medium.id,
+                child: Container(
+                  color: Colors.grey[300],
+                  child: FadeInImage(
+                    fit: BoxFit.cover,
+                    placeholder: MemoryImage(kTransparentImage),
+                    image: ThumbnailProvider(
+                      mediumId: medium.id,
+                      mediumType: medium.mediumType,
+                      highQuality: true,
                     ),
                   ),
                 ),
-              ))
+              ),
+            );
+          })
         ],
       ),
     );
