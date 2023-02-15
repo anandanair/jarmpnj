@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:jarmpnj/services/auth.dart';
-import 'package:jarmpnj/services/storage_service.dart';
 
 class FirestoreService {
   final db = FirebaseFirestore.instance;
@@ -30,8 +29,6 @@ class FirestoreService {
   }
 
   void createAlbumInFirestore(media, albumName) async {
-    StorageService().uploadFiles(media, albumName);
-
     // db.collection("users").doc(user!.uid).collection("backup")
   }
 }
