@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:jarmpnj/components/my_extended_floating_button.dart';
+import 'package:jarmpnj/components/my_tonal_filled_button.dart';
 import 'package:jarmpnj/pages/album_page.dart';
 import 'package:jarmpnj/pages/photos_on_device_page.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -76,19 +76,19 @@ class _AlbumsPageState extends State<AlbumsPage> {
                       crossAxisSpacing: 10,
                     ),
                     delegate: SliverChildListDelegate([
-                      const MyExtendedFloatingButton(
+                      const MyTonalFilledButton(
                         iconData: Icons.favorite,
                         text: 'Favorites',
                       ),
-                      const MyExtendedFloatingButton(
+                      const MyTonalFilledButton(
+                        iconData: Icons.settings_sharp,
+                        text: 'Utilities',
+                      ),
+                      const MyTonalFilledButton(
                         iconData: Icons.delete,
                         text: 'Trash',
                       ),
-                      const MyExtendedFloatingButton(
-                        iconData: Icons.delete,
-                        text: 'Trash',
-                      ),
-                      const MyExtendedFloatingButton(
+                      const MyTonalFilledButton(
                         iconData: Icons.delete,
                         text: 'Trash',
                       ),

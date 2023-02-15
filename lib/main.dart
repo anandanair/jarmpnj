@@ -18,11 +18,12 @@ class MyApp extends StatelessWidget {
   // Build Theme
   ThemeData _buildTheme(brightness) {
     var baseTheme = ThemeData(
-        brightness: brightness,
-        useMaterial3: true,
-        colorSchemeSeed: brightness == Brightness.dark
-            ? const Color.fromARGB(255, 18, 6, 24)
-            : const Color.fromARGB(255, 204, 126, 204));
+      brightness: brightness,
+      useMaterial3: true,
+      colorSchemeSeed: brightness == Brightness.dark
+          ? const Color.fromARGB(255, 7, 66, 143)
+          : const Color.fromARGB(255, 20, 37, 5),
+    );
 
     return baseTheme.copyWith(
       textTheme: GoogleFonts.comicNeueTextTheme(baseTheme.textTheme),
