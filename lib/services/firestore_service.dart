@@ -65,23 +65,23 @@ class FirestoreService {
     });
   }
 
-  checkBackupEnabled(albumName) async {
-    final docRef = db.collection("users").doc(user!.uid).withConverter(
-          fromFirestore: UserModel.fromFirestore,
-          toFirestore: (UserModel userModel, _) => userModel.toFirestore(),
-        );
-    final docSnap = await docRef.get();
-    final userModel = docSnap.data();
+  // checkBackupEnabled(albumName) async {
+  //   final docRef = db.collection("users").doc(user!.uid).withConverter(
+  //         fromFirestore: UserModel.fromFirestore,
+  //         toFirestore: (UserModel userModel, _) => userModel.toFirestore(),
+  //       );
+  //   final docSnap = await docRef.get();
+  //   final userModel = docSnap.data();
 
-    if (userModel != null) {
-      if (userModel.albums != null) {
-        final album =
-            userModel.albums!.where((album) => album['albumName'] == albumName);
-        if (album.isNotEmpty) {
-          return album.first['backup'];
-        }
-        return false;
-      }
-    }
-  }
+  //   if (userModel != null) {
+  //     if (userModel.albums != null) {
+  //       final album =
+  //           userModel.albums!.where((album) => album['albumName'] == albumName);
+  //       if (album.isNotEmpty) {
+  //         return album.first['backup'];
+  //       }
+  //       return false;
+  //     }
+  //   }
+  // }
 }

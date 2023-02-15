@@ -36,9 +36,9 @@ class _AlbumsPageState extends State<AlbumsPage> {
       List<Album> videoAlbums =
           await PhotoGallery.listAlbums(mediumType: MediumType.video);
 
-      for (var album in albums) {
-        FirestoreService().checkBackupEnabled(album.name);
-      }
+      // for (var album in albums) {
+      //   FirestoreService().checkBackupEnabled(album.name);
+      // }
 
       setState(() {
         _imageAlbums = albums;
