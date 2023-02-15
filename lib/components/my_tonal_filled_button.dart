@@ -26,13 +26,7 @@ class MyTonalFilledButton extends StatelessWidget {
             color: colorScheme.primary,
           ),
           const SizedBox(width: 10),
-          Text(
-            text,
-            style: Theme.of(context)
-                .textTheme
-                .titleMedium!
-                .copyWith(color: colorScheme.primary),
-          ),
+          Text(text, style: Theme.of(context).textTheme.titleMedium!),
         ],
       ),
     );

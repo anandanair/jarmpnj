@@ -5,10 +5,12 @@ import 'package:transparent_image/transparent_image.dart';
 
 class PhotosOnDevicePage extends StatefulWidget {
   final List<Album> albums;
+  final String title;
 
   const PhotosOnDevicePage({
     super.key,
     required this.albums,
+    required this.title,
   });
 
   @override
@@ -21,7 +23,7 @@ class _PhotosOnDevicePageState extends State<PhotosOnDevicePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Photos on device',
+          widget.title,
           style: Theme.of(context).textTheme.titleLarge,
         ),
       ),

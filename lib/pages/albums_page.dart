@@ -17,7 +17,8 @@ class AlbumsPage extends StatefulWidget {
 
 class _AlbumsPageState extends State<AlbumsPage> {
   // State
-  List<Album>? _albums;
+  List<Album>? _imageAlbums;
+  List<Album>? _videoAlbums;
   bool _loading = true;
 
   @override
@@ -31,8 +32,11 @@ class _AlbumsPageState extends State<AlbumsPage> {
     if (await _promptPermissionSetting()) {
       List<Album> albums =
           await PhotoGallery.listAlbums(mediumType: MediumType.image);
+      List<Album> videoAlbums =
+          await PhotoGallery.listAlbums(mediumType: MediumType.video);
       setState(() {
-        _albums = albums;
+        _imageAlbums = albums;
+        _videoAlbums = videoAlbums;
         _loading = false;
       });
     }
@@ -66,7 +70,7 @@ class _AlbumsPageState extends State<AlbumsPage> {
             return CustomScrollView(
               slivers: <Widget>[
                 SliverPadding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  padding: const EdgeInsets.only(left: 10, right: 10, top: 20),
                   sliver: SliverGrid(
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
@@ -97,14 +101,10 @@ class _AlbumsPageState extends State<AlbumsPage> {
                 ),
                 SliverPadding(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 0, vertical: 25),
+                      const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
                   sliver: SliverToBoxAdapter(
-                    child: Container(
-                      height: gridHeight + 70,
-                      decoration: BoxDecoration(
-                        color:
-                            Theme.of(context).colorScheme.primary.withAlpha(25),
-                      ),
+                    child: SizedBox(
+                      height: gridHeight + 55,
                       child: Column(
                         children: [
                           Padding(
@@ -121,14 +121,20 @@ class _AlbumsPageState extends State<AlbumsPage> {
                                 TextButton(
                                   onPressed: () => Navigator.of(context).push(
                                     MaterialPageRoute(
-                                      builder: (context) =>
-                                          PhotosOnDevicePage(albums: _albums!),
+                                      builder: (context) => PhotosOnDevicePage(
+                                          title: 'Photos on device',
+                                          albums: _imageAlbums!),
                                     ),
                                   ),
                                   child: Text(
                                     "View All",
-                                    style:
-                                        Theme.of(context).textTheme.titleMedium,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleMedium!
+                                        .copyWith(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .primary),
                                   ),
                                 ),
                               ],
@@ -138,7 +144,122 @@ class _AlbumsPageState extends State<AlbumsPage> {
                             child: ListView(
                               scrollDirection: Axis.horizontal,
                               children: <Widget>[
-                                ...?_albums?.map((album) => GestureDetector(
+                                ...?_imageAlbums?.map((album) =>
+                                    GestureDetector(
+                                      onTap: () => Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  AlbumPage(album: album))),
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 10),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: <Widget>[
+                                            ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(20.0),
+                                              child: Container(
+                                                color: Colors.grey[300],
+                                                height: gridWidth,
+                                                width: gridWidth,
+                                                child: FadeInImage(
+                                                  fit: BoxFit.cover,
+                                                  placeholder: MemoryImage(
+                                                      kTransparentImage),
+                                                  image: AlbumThumbnailProvider(
+                                                    albumId: album.id,
+                                                    mediumType:
+                                                        album.mediumType,
+                                                    highQuality: true,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            Container(
+                                              alignment: Alignment.topLeft,
+                                              padding: const EdgeInsets.only(
+                                                  left: 2.0),
+                                              child: Text(
+                                                album.name ?? "Unnamed Album",
+                                                maxLines: 1,
+                                                textAlign: TextAlign.start,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .titleMedium,
+                                              ),
+                                            ),
+                                            Container(
+                                              alignment: Alignment.topLeft,
+                                              padding: const EdgeInsets.only(
+                                                  left: 2.0),
+                                              child: Text(
+                                                album.count.toString(),
+                                                textAlign: TextAlign.start,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .labelSmall,
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ))
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                SliverPadding(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  sliver: SliverToBoxAdapter(
+                    child: SizedBox(
+                      height: gridHeight + 60,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 10.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Videos on Device",
+                                  style:
+                                      Theme.of(context).textTheme.titleMedium,
+                                ),
+                                TextButton(
+                                  onPressed: () => Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) => PhotosOnDevicePage(
+                                          title: 'Videos on device',
+                                          albums: _videoAlbums!),
+                                    ),
+                                  ),
+                                  child: Text(
+                                    "View All",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleMedium!
+                                        .copyWith(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .primary),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Expanded(
+                            child: ListView(
+                              scrollDirection: Axis.horizontal,
+                              children: <Widget>[
+                                ...?_videoAlbums?.map((album) =>
+                                    GestureDetector(
                                       onTap: () => Navigator.of(context).push(
                                           MaterialPageRoute(
                                               builder: (context) =>
