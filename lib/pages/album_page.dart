@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:jarmpnj/pages/viewer_page.dart';
-import 'package:jarmpnj/services/firestore_service.dart';
+import 'package:jarmpnj/providers/storage_provider.dart';
 import 'package:photo_gallery/photo_gallery.dart';
+import 'package:provider/provider.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class AlbumPage extends StatefulWidget {
@@ -20,6 +21,7 @@ class _AlbumPageState extends State<AlbumPage> {
   List<Medium>? _media;
   bool backup = false;
   final ScrollController scrollController = ScrollController();
+  final storage = StorageProvider();
 
   @override
   void initState() {
@@ -48,9 +50,10 @@ class _AlbumPageState extends State<AlbumPage> {
     scrollController.jumpTo(value);
   }
 
-  void switchBackup(value) {
+  void switchBackup(value, BuildContext context) {
     if (value) {
-      FirestoreService().createAlbumInFirestore(_media, widget.album.name);
+      Provider.of<StorageProvider>(context, listen: false)
+          .uploadFiles(_media, widget.album.name);
     }
     setState(() {
       backup = value;
@@ -75,7 +78,7 @@ class _AlbumPageState extends State<AlbumPage> {
                 ),
                 Switch(
                   value: backup,
-                  onChanged: (value) => switchBackup(value),
+                  onChanged: (value) => switchBackup(value, context),
                 )
               ],
             ),
