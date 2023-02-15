@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jarmpnj/pages/viewer_page.dart';
+import 'package:jarmpnj/services/firestore_service.dart';
 import 'package:photo_gallery/photo_gallery.dart';
 import 'package:transparent_image/transparent_image.dart';
 
@@ -47,6 +48,15 @@ class _AlbumPageState extends State<AlbumPage> {
     scrollController.jumpTo(value);
   }
 
+  void switchBackup(value) {
+    if (value) {
+      FirestoreService().createAlbumInFirestore(_media);
+    }
+    setState(() {
+      backup = value;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,11 +75,7 @@ class _AlbumPageState extends State<AlbumPage> {
                 ),
                 Switch(
                   value: backup,
-                  onChanged: (value) {
-                    setState(() {
-                      backup = value;
-                    });
-                  },
+                  onChanged: (value) => switchBackup(value),
                 )
               ],
             ),

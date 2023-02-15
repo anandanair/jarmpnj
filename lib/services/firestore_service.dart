@@ -1,9 +1,12 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:jarmpnj/services/auth.dart';
 
 class FirestoreService {
   final db = FirebaseFirestore.instance;
+  final User? user = Auth().currentUser;
 
   void checkUserExists() {
     // check if user already exists in firestore
@@ -25,5 +28,18 @@ class FirestoreService {
       'displayName': currentUser.displayName,
       'photoURL': currentUser.photoURL,
     });
+  }
+
+  void createAlbumInFirestore(data) async {
+    List<File> filesToUpload = [];
+    for (var medium in data) {
+      final File file = await medium.getFile();
+      filesToUpload.add(file);
+    }
+
+    // List<Future<TaskSnapshot>> uploadTasks = [];
+
+    print(filesToUpload);
+    // db.collection("users").doc(user!.uid).collection("backup")
   }
 }
