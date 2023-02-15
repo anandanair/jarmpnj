@@ -35,37 +35,47 @@ class _ViewerPageState extends State<ViewerPage> {
   Widget build(BuildContext context) {
     // DateTime? date = medium.creationDate ?? medium.modifiedDate;
 
-    return Scaffold(
-      appBar: AppBar(
-        actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.star_border))
-        ],
+    return WillPopScope(
+      onWillPop: () async {
+        Navigator.pop(context, currentIndex);
+        return false;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+            onPressed: () => Navigator.pop(context, currentIndex),
+            icon: const Icon(Icons.arrow_back),
+          ),
+          actions: [
+            IconButton(onPressed: () {}, icon: const Icon(Icons.star_border))
+          ],
+        ),
+        body: widget.medium.mediumType == MediumType.image
+            ? PhotoViewGallery.builder(
+                scrollPhysics: const BouncingScrollPhysics(),
+                itemCount: widget.media.length,
+                builder: (BuildContext context, int index) {
+                  return PhotoViewGalleryPageOptions(
+                    imageProvider:
+                        PhotoProvider(mediumId: widget.media[index].id),
+                    initialScale: PhotoViewComputedScale.contained,
+                    heroAttributes:
+                        PhotoViewHeroAttributes(tag: widget.media[index].id),
+                  );
+                },
+                loadingBuilder: (context, event) => const Center(
+                  child: SizedBox(
+                      width: 20.0,
+                      height: 20.0,
+                      child: CircularProgressIndicator()),
+                ),
+                backgroundDecoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.background),
+                pageController: widget.pageController,
+                onPageChanged: onPageChanged,
+              )
+            : VideoProvider(mediumId: widget.medium.id),
       ),
-      body: widget.medium.mediumType == MediumType.image
-          ? PhotoViewGallery.builder(
-              scrollPhysics: const BouncingScrollPhysics(),
-              itemCount: widget.media.length,
-              builder: (BuildContext context, int index) {
-                return PhotoViewGalleryPageOptions(
-                  imageProvider:
-                      PhotoProvider(mediumId: widget.media[index].id),
-                  initialScale: PhotoViewComputedScale.contained,
-                  heroAttributes:
-                      PhotoViewHeroAttributes(tag: widget.media[index].id),
-                );
-              },
-              loadingBuilder: (context, event) => const Center(
-                child: SizedBox(
-                    width: 20.0,
-                    height: 20.0,
-                    child: CircularProgressIndicator()),
-              ),
-              backgroundDecoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.background),
-              pageController: widget.pageController,
-              onPageChanged: onPageChanged,
-            )
-          : VideoProvider(mediumId: widget.medium.id),
     );
   }
 }

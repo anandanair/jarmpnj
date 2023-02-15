@@ -18,6 +18,7 @@ class AlbumPage extends StatefulWidget {
 class _AlbumPageState extends State<AlbumPage> {
   List<Medium>? _media;
   bool backup = false;
+  final ScrollController scrollController = ScrollController();
 
   @override
   void initState() {
@@ -30,6 +31,20 @@ class _AlbumPageState extends State<AlbumPage> {
     setState(() {
       _media = mediaPage.items;
     });
+  }
+
+  void jumpToImage(int index) {
+    final vH = scrollController.position.viewportDimension;
+    final currentPixels = scrollController.position.pixels;
+    final maxView = currentPixels + vH - 50;
+    final itemCount = (_media!.length).round();
+    final height = scrollController.position.maxScrollExtent + vH;
+    final remainder = index % 3;
+    final value = ((index - remainder) / itemCount) * height;
+    if (value >= currentPixels && value <= maxView) {
+      return;
+    }
+    scrollController.jumpTo(value);
   }
 
   @override
@@ -65,20 +80,23 @@ class _AlbumPageState extends State<AlbumPage> {
         crossAxisCount: 3,
         mainAxisSpacing: 1.0,
         crossAxisSpacing: 1.0,
+        controller: scrollController,
         children: <Widget>[
           ...?_media?.asMap().entries.map((entry) {
             int index = entry.key;
             Medium medium = entry.value;
             return GestureDetector(
-              onTap: () => Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => ViewerPage(
-                    medium: medium,
-                    initialIndex: index,
-                    media: _media!,
-                  ),
-                ),
-              ),
+              onTap: () => Navigator.of(context)
+                  .push(
+                    MaterialPageRoute(
+                      builder: (context) => ViewerPage(
+                        medium: medium,
+                        initialIndex: index,
+                        media: _media!,
+                      ),
+                    ),
+                  )
+                  .then((value) => jumpToImage(value)),
               child: Hero(
                 tag: medium.id,
                 child: Container(
