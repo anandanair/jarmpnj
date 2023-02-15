@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:jarmpnj/services/firestore_service.dart';
 import 'package:photo_gallery/photo_gallery.dart';
 
 import '../services/auth.dart';
@@ -23,8 +24,11 @@ class StorageProvider extends ChangeNotifier {
   int get uploadedFiles => _uploadedFiles;
 
   void uploadFiles(media, albumName) async {
-// Update upload data
+    // Update upload data
     _totalFiles = media.length + _totalFiles;
+
+    // Create album in firestore
+    await FirestoreService().createAlbumInFirestore(albumName, media.length);
 
     // Only start uploading if there is no upload in progress
     if (!_uploading) {
@@ -44,7 +48,12 @@ class StorageProvider extends ChangeNotifier {
         UploadTask uploadTask = fileRef.putFile(
             file, SettableMetadata(contentType: medium.mimeType));
 
-        await uploadTask.whenComplete(() {
+        await uploadTask.whenComplete(() async {
+          // Add data to firestore
+          final downloadURL = await fileRef.getDownloadURL();
+          await FirestoreService()
+              .createFileInFirestore(medium, albumName, downloadURL);
+
           _uploadedFiles++;
           _progress = (_uploadedFiles / _totalFiles) * 100;
           notifyListeners();

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:jarmpnj/components/my_tonal_filled_button.dart';
 import 'package:jarmpnj/pages/album_page.dart';
 import 'package:jarmpnj/pages/photos_on_device_page.dart';
+import 'package:jarmpnj/services/firestore_service.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:photo_gallery/photo_gallery.dart';
 import 'package:transparent_image/transparent_image.dart';
@@ -34,6 +35,11 @@ class _AlbumsPageState extends State<AlbumsPage> {
           await PhotoGallery.listAlbums(mediumType: MediumType.image);
       List<Album> videoAlbums =
           await PhotoGallery.listAlbums(mediumType: MediumType.video);
+
+      for (var album in albums) {
+        FirestoreService().checkBackupEnabled(album.name);
+      }
+
       setState(() {
         _imageAlbums = albums;
         _videoAlbums = videoAlbums;
