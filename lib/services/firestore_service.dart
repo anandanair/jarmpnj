@@ -1,8 +1,7 @@
-import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:jarmpnj/services/auth.dart';
+import 'package:jarmpnj/services/storage_service.dart';
 
 class FirestoreService {
   final db = FirebaseFirestore.instance;
@@ -30,16 +29,9 @@ class FirestoreService {
     });
   }
 
-  void createAlbumInFirestore(data) async {
-    List<File> filesToUpload = [];
-    for (var medium in data) {
-      final File file = await medium.getFile();
-      filesToUpload.add(file);
-    }
+  void createAlbumInFirestore(media, albumName) async {
+    StorageService().uploadFiles(media, albumName);
 
-    // List<Future<TaskSnapshot>> uploadTasks = [];
-
-    print(filesToUpload);
     // db.collection("users").doc(user!.uid).collection("backup")
   }
 }

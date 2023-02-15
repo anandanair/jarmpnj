@@ -52,6 +52,7 @@ dependencies:
   photo_gallery: ^1.1.1
   transparent_image: ^2.0.0
   video_player: ^2.5.1
+  firebase_storage: ^11.0.11
 
 dev_dependencies:
   flutter_test:

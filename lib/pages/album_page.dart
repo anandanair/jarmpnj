@@ -50,7 +50,7 @@ class _AlbumPageState extends State<AlbumPage> {
 
   void switchBackup(value) {
     if (value) {
-      FirestoreService().createAlbumInFirestore(_media);
+      FirestoreService().createAlbumInFirestore(_media, widget.album.name);
     }
     setState(() {
       backup = value;
@@ -82,45 +82,48 @@ class _AlbumPageState extends State<AlbumPage> {
           ),
         ),
       ),
-      body: GridView.count(
-        crossAxisCount: 3,
-        mainAxisSpacing: 1.0,
-        crossAxisSpacing: 1.0,
-        controller: scrollController,
-        children: <Widget>[
-          ...?_media?.asMap().entries.map((entry) {
-            int index = entry.key;
-            Medium medium = entry.value;
-            return GestureDetector(
-              onTap: () => Navigator.of(context)
-                  .push(
-                    MaterialPageRoute(
-                      builder: (context) => ViewerPage(
-                        medium: medium,
-                        initialIndex: index,
-                        media: _media!,
+      body: Padding(
+        padding: const EdgeInsets.only(top: 10),
+        child: GridView.count(
+          crossAxisCount: 3,
+          mainAxisSpacing: 1.0,
+          crossAxisSpacing: 1.0,
+          controller: scrollController,
+          children: <Widget>[
+            ...?_media?.asMap().entries.map((entry) {
+              int index = entry.key;
+              Medium medium = entry.value;
+              return GestureDetector(
+                onTap: () => Navigator.of(context)
+                    .push(
+                      MaterialPageRoute(
+                        builder: (context) => ViewerPage(
+                          medium: medium,
+                          initialIndex: index,
+                          media: _media!,
+                        ),
                       ),
-                    ),
-                  )
-                  .then((value) => jumpToImage(value)),
-              child: Hero(
-                tag: medium.id,
-                child: Container(
-                  color: Colors.grey[300],
-                  child: FadeInImage(
-                    fit: BoxFit.cover,
-                    placeholder: MemoryImage(kTransparentImage),
-                    image: ThumbnailProvider(
-                      mediumId: medium.id,
-                      mediumType: medium.mediumType,
-                      highQuality: true,
+                    )
+                    .then((value) => jumpToImage(value)),
+                child: Hero(
+                  tag: medium.id,
+                  child: Container(
+                    color: Colors.grey[300],
+                    child: FadeInImage(
+                      fit: BoxFit.cover,
+                      placeholder: MemoryImage(kTransparentImage),
+                      image: ThumbnailProvider(
+                        mediumId: medium.id,
+                        mediumType: medium.mediumType,
+                        highQuality: true,
+                      ),
                     ),
                   ),
                 ),
-              ),
-            );
-          })
-        ],
+              );
+            })
+          ],
+        ),
       ),
     );
   }
